@@ -10,4 +10,17 @@ class BaseMessage:
     """
     Interface of a message for the BattleShip game
     """
-    pass
+
+    def serialize(self):
+        """
+        change the message representation to byte code
+        :return bytes: byte code
+        """
+        raise NotImplementedError()
+
+    def deserialize(self, bytes_rep):
+        """
+        sets the variables from bytes representation
+        :param bytes_rep: the representation of the variables
+        """
+        raise NotImplementedError()

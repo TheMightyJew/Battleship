@@ -6,6 +6,7 @@ Last edit: 29/12/2020
 """
 from enum import Enum, auto
 from Messages.baseMessage import BaseMessage
+from consts import BattleshipConsts, MessagesConsts
 
 
 class SessionType(Enum):
@@ -21,16 +22,27 @@ class SessionMessage(BaseMessage):
     Class of a session message for the BattleShip game
     """
 
-    def __init__(self, session_type, token, version):
+    def __init__(self, session_type=None, token=None, version=None):
         self.session_type = session_type
         self.token = token
         self.version = version
 
-    def get_session_type(self):
-        return self.session_type
+    def serialize(self):
+        session_type_bytes = self.session_type.to_bytes(BattleshipConsts.BYTES_REP_LENGTH, BattleshipConsts.BYTES_WRITING_STYLE)
+        token_bytes = self.token.to_bytes(BattleshipConsts.BYTES_REP_LENGTH, BattleshipConsts.BYTES_WRITING_STYLE)
+        version_bytes = self.version.to_bytes(BattleshipConsts.BYTES_REP_LENGTH, BattleshipConsts.BYTES_WRITING_STYLE)
+        payload = session_type_bytes + token_bytes + version_bytes
+        message_code = MessagesConsts.DEATH
+        return message_code + bytes(len(payload)) + payload
 
-    def get_token(self):
-        return self.token
+    def deserialize(self, bytes_rep):
+        index = 0
 
-    def get_version(self):
-        return self.version
+        self.session_type = int.from_bytes(bytes_rep[index:index + BattleshipConsts.BYTES_REP_LENGTH], BattleshipConsts.BYTES_WRITING_STYLE)
+        index += BattleshipConsts.BYTES_REP_LENGTH
+
+        self.token = int.from_bytes(bytes_rep[index:index + BattleshipConsts.BYTES_REP_LENGTH], BattleshipConsts.BYTES_WRITING_STYLE)
+        index += BattleshipConsts.BYTES_REP_LENGTH
+
+        self.version = int.from_bytes(bytes_rep[index:index + BattleshipConsts.BYTES_REP_LENGTH], BattleshipConsts.BYTES_WRITING_STYLE)
+        index += BattleshipConsts.BYTES_REP_LENGTH

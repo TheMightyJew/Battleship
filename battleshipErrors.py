@@ -42,3 +42,12 @@ class InvalidBattleshipsPosError(BaseBattleshipError):
 
     def __init__(self, error_msg):
         super(InvalidBattleshipsPosError, self).__init__(error_msg)
+
+
+class InvalidMessageError(BaseBattleshipError):
+    """
+    Error for invalid message
+    """
+
+    def __init__(self, error_msg):
+        super(InvalidMessageError, self).__init__(error_msg)
