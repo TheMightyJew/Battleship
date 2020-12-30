@@ -8,6 +8,14 @@ from consts import ErrorsConsts
 from coordinate import Coordinate
 from baseBattleship import BaseBattleship
 from battleshipErrors import InvalidBattleshipCoordinatesError
+from enum import Enum, auto
+
+
+class Direction(Enum):
+    Down = auto,
+    Up = auto,
+    Right = auto,
+    Left = auto
 
 
 def is_straight_coordinates(coordinates: list):
@@ -32,12 +40,37 @@ class StraightBattleship(BaseBattleship):
     class for straight battleship
     """
 
-    def __init__(self, coordinates: list):
+    def __init__(self, battleship_length, coordinate: Coordinate, direction: Direction):
+        """
+        Initiate straight battleship while checking the coordinates are valid
+        :param battleship_length: the length of the ship
+        :param coordinate: the head coordinate of the ship
+        :param direction: the direction of the ship starting from the head
+        """
+        self.battleship_length = battleship_length
+        self.head_coordinate = coordinate
+        self.direction = direction
+        self.coordinates = None
+        coordinates = [coordinate]
+        for counter in range(battleship_length):
+            if direction is Direction.Down:
+                coordinates.append(Coordinate(coordinate.row_index + counter, coordinate.col_index))
+            elif direction is Direction.Up:
+                coordinates.append(Coordinate(coordinate.row_index - counter, coordinate.col_index))
+            elif direction is Direction.Right:
+                coordinates.append(Coordinate(coordinate.row_index, coordinate.col_index + counter))
+            elif direction is Direction.Left:
+                coordinates.append(Coordinate(coordinate.row_index, coordinate.col_index - counter))
+        self.set_coordinates(coordinates)
+
+    def set_coordinates(self, coordinates: list):
         """
         Initiate straight battleship while checking the coordinates are valid
         :param coordinates: the coordinates of the ship
         :raise InvalidBattleshipCoordinatesError: if the coordinates are invalid
         """
+        if len(coordinates) <= 0:
+            raise InvalidBattleshipCoordinatesError(ErrorsConsts.NOT_POSITIVE_SHIP_LENGTH_ERROR_MSG)
         if is_straight_coordinates(coordinates):
             raise InvalidBattleshipCoordinatesError(ErrorsConsts.NOT_STRAIGHT_COORDINATES_ERROR_MSG)
         self.coordinates = {coordinate: True for coordinate in coordinates}
@@ -56,4 +89,4 @@ class StraightBattleship(BaseBattleship):
         return list(self.coordinates.keys())
 
     def get_size(self):
-        return len(self.coordinates)
+        return self.battleship_length

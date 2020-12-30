@@ -17,7 +17,8 @@ class BattleshipConsts:
 
 
 class ErrorsConsts:
-    NOT_STRAIGHT_COORDINATES_ERROR_MSG = 'All battleship\' coordinates must be align in a straight line'
+    NOT_STRAIGHT_COORDINATES_ERROR_MSG = 'All battleship\'s coordinates must be align in a straight line'
+    NOT_POSITIVE_SHIP_LENGTH_ERROR_MSG = 'Battleship length must be higher than 0'
     INVALID_COORDINATE_ERROR_MSG_PART1 = 'Coordinates must be values in the range:'
     INVALID_COORDINATE_ERROR_MSG_PART2 = 'The following coordinate is invalid:'
     INVALID_BATTLESHIP_POS_MSG = 'The battleships must be at least 2 coordinates far away from each other'
