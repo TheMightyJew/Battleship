@@ -2,7 +2,7 @@
 Purpose: a module that contains errors (exceptions) for the Battleship project
 Author: Steven Danishevski
 Created: 29/12/2020
-Last edit: 29/12/2020
+Last edit: 30/12/2020
 """
 from consts import ErrorsConsts
 
@@ -51,3 +51,13 @@ class InvalidMessageError(BaseBattleshipError):
 
     def __init__(self, error_msg):
         super(InvalidMessageError, self).__init__(error_msg)
+
+
+class InvalidMessageFlow(BaseBattleshipError):
+    """
+    Error for invalid message flow
+    """
+
+    def __init__(self, message_code):
+        error_msg = f'{ErrorsConsts.INVALID_MESSAGE_FLOW_MSG} {str(message_code)}'
+        super(InvalidMessageFlow, self).__init__(error_msg)

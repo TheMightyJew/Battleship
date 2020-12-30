@@ -2,7 +2,7 @@
 Purpose: a module that represents a class for a straight battleship
 Author: Steven Danishevski
 Created: 29/12/2020
-Last edit: 29/12/2020
+Last edit: 30/12/2020
 """
 from consts import ErrorsConsts
 from coordinate import Coordinate

@@ -2,7 +2,7 @@
 Purpose: a module that contains consts for the Battleship project
 Author: Steven Danishevski
 Created: 29/12/2020
-Last edit: 29/12/2020
+Last edit: 30/12/2020
 """
 
 
@@ -10,9 +10,11 @@ class BattleshipConsts:
     """
     Consts for the battleships objects
     """
+    CURRENT_VERSION = 1
     MIN_COORDINATE = 1
     MAX_COORDINATE = 10
     BYTES_REP_LENGTH = 2
+    MAX_INT_FROM_4_BYTES = 65535
     BYTES_WRITING_STYLE = 'little'
 
 
@@ -26,9 +28,11 @@ class ErrorsConsts:
     INVALID_MESSAGE_CODE_MSG = 'The following message code is invalid:'
     INVALID_MESSAGE_PAYLOAD_MSG1 = 'For the message code:'
     INVALID_MESSAGE_PAYLOAD_MSG2 = 'the following message code is invalid:'
+    INVALID_MESSAGE_FLOW_MSG = 'This is invalid message flow to receive now a message with the code:'
 
 
 class MessagesConsts:
+    MESSAGE_CODE_SIZE = 3
     CONNECT_SESSION = bytes('\x00' * 3)
     YES = bytes('\x00' * 2 + '\x01')
     NO = bytes('\x00' * 2 + '\x02')
